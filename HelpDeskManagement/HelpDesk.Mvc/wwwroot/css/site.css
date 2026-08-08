@@ -1,0 +1,8 @@
+/* Custom site styles for Help Desk Management System */
+body {
+    padding-top: 0;
+}
+
+.card .display-6 {
+    font-weight: 600;
+}

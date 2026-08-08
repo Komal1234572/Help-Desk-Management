@@ -1,0 +1,61 @@
+@model HelpDesk.Mvc.Models.Ticket
+@{
+    ViewData["Title"] = "Edit Ticket";
+    var priorityOptions = ViewBag.PriorityOptions as List<string>;
+    var statusOptions = ViewBag.StatusOptions as List<string>;
+}
+
+<h1>Edit Ticket</h1>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="CreatedDate" />
+
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Priority" class="form-label"></label>
+        <select asp-for="Priority" class="form-select">
+            @foreach (var priority in priorityOptions)
+            {
+                <option value="@priority" selected="@(priority == Model.Priority)">@priority</option>
+            }
+        </select>
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" class="form-select">
+            @foreach (var status in statusOptions)
+            {
+                <option value="@status" selected="@(status == Model.Status)">@status</option>
+            }
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="RaisedBy" class="form-label"></label>
+        <input asp-for="RaisedBy" class="form-control" />
+        <span asp-validation-for="RaisedBy" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

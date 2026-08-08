@@ -1,0 +1,44 @@
+@model HelpDesk.Mvc.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<div class="row mt-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-primary h-100">
+            <div class="card-body">
+                <h5 class="card-title">Total Tickets</h5>
+                <p class="card-text display-6">@Model.TotalTickets</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-warning h-100">
+            <div class="card-body">
+                <h5 class="card-title">Open Tickets</h5>
+                <p class="card-text display-6">@Model.OpenTickets</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-dark bg-info h-100">
+            <div class="card-body">
+                <h5 class="card-title">In Progress</h5>
+                <p class="card-text display-6">@Model.InProgressTickets</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-success h-100">
+            <div class="card-body">
+                <h5 class="card-title">Closed Tickets</h5>
+                <p class="card-text display-6">@Model.ClosedTickets</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-controller="Ticket" asp-action="Create" class="btn btn-primary mt-2">Raise New Ticket</a>
+<a asp-controller="Ticket" asp-action="Index" class="btn btn-outline-secondary mt-2">View All Tickets</a>

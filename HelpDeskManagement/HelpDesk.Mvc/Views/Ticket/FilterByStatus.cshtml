@@ -1,0 +1,60 @@
+@model List<HelpDesk.Mvc.Models.Ticket>
+@{
+    ViewData["Title"] = "Filter Tickets by Status";
+    var statusOptions = ViewBag.StatusOptions as List<string>;
+    var selectedStatus = ViewBag.SelectedStatus as string;
+}
+
+<h1>Filter Tickets by Status</h1>
+
+<form asp-action="FilterByStatus" method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <select name="status" class="form-select">
+            <option value="">-- Select Status --</option>
+            @foreach (var status in statusOptions)
+            {
+                <option value="@status" selected="@(status == selectedStatus)">@status</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Raised By</th>
+                <th>Created Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>@ticket.Title</td>
+                <td>@ticket.Priority</td>
+                <td>@ticket.Status</td>
+                <td>@ticket.RaisedBy</td>
+                <td>@ticket.CreatedDate.ToString("dd-MMM-yyyy")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@ticket.Id" class="btn btn-sm btn-info">Details</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else if (!string.IsNullOrEmpty(selectedStatus))
+{
+    <p>No tickets found with status "@selectedStatus".</p>
+}
